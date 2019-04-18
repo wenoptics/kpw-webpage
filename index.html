@@ -17,8 +17,6 @@
 <script>
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera( 25, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    controls = new THREE.OrbitControls(camera);
-    controls.target = new THREE.Vector3(0, 0, 0);
 
     camera.position.set(0, 5, 5);
     // camera.position.z = 5;
@@ -35,79 +33,164 @@
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
 
-    /*// add a cube
-    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-    var cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );*/
+    // obit controller
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.target = new THREE.Vector3(0, 0, 0);
 
     var model_case_upper, model_case_lower;
+    var model_keypad_group = new THREE.Group();
     var group_closure = new THREE.Group();
+
+    var groupStates = {
+        groupSelectables: [],
+        animationDeactivate: {},
+        animationActivate: {},
+        add: function (obj) {
+            if (this.groupSelectables.indexOf(obj) < 0) {
+                this.groupSelectables.push(obj);
+
+                // Create animation objects
+                this.animationDeactivate[obj] = anime({
+                    targets: obj.material,
+                    opacity: 0.7,
+                    autoplay: false,
+                });
+                this.animationActivate[obj] = anime({
+                    targets: obj.material,
+                    opacity: 1,
+                    autoplay: false,
+                });
+            }
+        },
+        actionSetActive: function (obj) {
+            // console.log('actionSetActive: ', obj.material.opacity);
+            if (obj.material.opacity === 1) return;
+            obj.material.opacity = 1;
+            // this.animationDeactivate[obj].pause();
+            // this.animationActivate[obj].restart();
+        },
+        actionSetDeActive: function (obj) {
+            // console.log('actionSetDeActive: ',obj.material.opacity);
+            if (obj.material.opacity === 0.7) return;
+            obj.material.opacity = 0.7;
+            // this.animationActivate[obj].pause();
+            // this.animationDeactivate[obj].restart();
+        }
+    };
+
+    var explodeYValues = {
+        models: [],
+        yValues: []
+    };
 
     var material_plastic = new THREE.MeshPhongMaterial( {
         color: 0xecece7,
-        shading: THREE.FlatShading,
+        flatShading: true,
         polygonOffset: true,
-        polygonOffsetFactor: 1, // positive value pushes polygon further away
-        polygonOffsetUnits: 1
+        polygonOffsetFactor: 1,  // positive value pushes polygon further away
+        polygonOffsetUnits: 1,
+        transparent: true,
+        opacity: 1
     } );
 
+    // Load STL models
     var loader = new THREE.STLLoader();
     loader.load('models/case-upper.stl', function (geometry) {
 
         model_case_upper = new THREE.Group();
 
         // add the mesh
-        var mesh = new THREE.Mesh( geometry, material_plastic );
+        var mesh = new THREE.Mesh( geometry, material_plastic.clone() );
         model_case_upper.add(mesh);
+        groupStates.add(mesh);
 
         // and the wireFrame
         model_case_upper.add(wireframe.getEdgeModel(geometry));
+
+        // manage the explode y value
+        explodeYValues.models.push(model_case_upper);
+        explodeYValues.yValues.push(45);
 
         // model_case_upper.position.set([0, 0, 0]);
         group_closure.add( model_case_upper );
         playRotateAnimation();
     });
-
     loader.load('models/case-lower.stl', function (geometry) {
 
         model_case_lower = new THREE.Group();
 
         // add the mesh
-        var mesh = new THREE.Mesh( geometry, material_plastic );
+        var mesh = new THREE.Mesh( geometry, material_plastic.clone() );
         model_case_lower.add(mesh);
+        groupStates.add(mesh);
 
         // and the wireFrame
         model_case_lower.add(wireframe.getEdgeModel(geometry));
 
+        // manage the explode y value
+        explodeYValues.models.push(model_case_lower);
+        explodeYValues.yValues.push(0);
+
         // model_case_lower.position.set([0, 0, 0]);
         group_closure.add( model_case_lower );
     });
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'hash'].forEach((kn) => {
+        loader.load(`models/key-${kn}.stl`, function (geometry) {
 
+            var _group = new THREE.Group();
+
+            // add the mesh
+            var mesh = new THREE.Mesh( geometry, material_plastic.clone() );
+            _group.add(mesh);
+            groupStates.add(mesh);
+
+            // and the wireFrame
+            _group.add(wireframe.getEdgeModel(geometry));
+
+            // model_case_upper.position.set([0, 0, 0]);
+            model_keypad_group.add( _group );
+        });
+    });
+    explodeYValues.models.push(model_keypad_group);
+    explodeYValues.yValues.push(30);
+
+    [
+        ['comp-motor.stl', 10],
+        ['comp-switch.stl', 4],
+        ['comp-pcb-wemos.stl', 16],
+        ['comp-battery.stl', 12],
+        ['comp-pcb.stl', 20],
+    ].forEach((e) => {
+        var model_fn = e[0];
+        var explode_y = e[1];
+        loader.load('models/'+model_fn, function (geometry) {
+            var _group = new THREE.Group();
+
+            // add the mesh
+            var mesh = new THREE.Mesh( geometry, material_plastic.clone() );
+            _group.add(mesh);
+            groupStates.add(mesh);
+
+            // and the wireFrame
+            _group.add(wireframe.getEdgeModel(geometry));
+
+            // manage the explode y value
+            explodeYValues.models.push(_group);
+            explodeYValues.yValues.push(explode_y);
+
+            // model_case_upper.position.set([0, 0, 0]);
+            group_closure.add( _group );
+        });
+    });
+
+    // Grouping
+    group_closure.add(model_keypad_group);
     group_closure.scale.set(0.07, 0.07, 0.07);
     scene.add(group_closure);
 
-    function animate() {
-        requestAnimationFrame( animate );
-
-        // update orbit controls
-        if(controls) {
-            controls.update();
-        }
-
-        // if (group_closure) {
-        //     // model_case_upper.rotation.x += 0.02;
-        //     group_closure.rotation.y += 0.01;
-        //     // model_case_upper.rotation.z += 0.01;
-        // }
-
-        renderer.render( scene, camera );
-    }
-    animate();
-
     var modelVar = {
         rot_y: 0,
-        model_case_upper_y: 0
+        explodeProgress: 0
     };
 
     function playRotateAnimation() {
@@ -125,11 +208,14 @@
 
     function playExplodeAnimation() {
 
+
         anime({
             targets: modelVar,
-            model_case_upper_y: '10',
+            explodeProgress: 1,
             update: function () {
-                model_case_upper.position.y = modelVar.model_case_upper_y
+                for (var i = 0; i < explodeYValues.models.length; i++) {
+                    explodeYValues.models[i].position.y = explodeYValues.yValues[i] * modelVar.explodeProgress;
+                }
             },
             duration: 4000
         });
@@ -140,9 +226,11 @@
 
         anime({
             targets: modelVar,
-            model_case_upper_y: '0',
+            explodeProgress: 0,
             update: function () {
-                model_case_upper.position.y = modelVar.model_case_upper_y
+                for (var i = 0; i < explodeYValues.models.length; i++) {
+                    explodeYValues.models[i].position.y = explodeYValues.yValues[i] * modelVar.explodeProgress;
+                }
             },
             easing: 'easeOutQuart',
             duration: 2000
@@ -151,18 +239,64 @@
     }
 
     var wireframe = {
-        mat: new THREE.LineBasicMaterial( { color: 0x3a3a3a, linewidth: 1 } ),
+        mat: new THREE.LineBasicMaterial({color: 0x3a3a3a, linewidth: 1}),
         getEdgeModel: function (geometry) {
-            var geo = new THREE.EdgesGeometry( geometry );
-            var wireframe = new THREE.LineSegments( geo, this.mat );
-            return wireframe;
+            var geo = new THREE.EdgesGeometry(geometry);
+            return new THREE.LineSegments(geo, this.mat);
         },
         getWireframeModel: function (geometry) {
-            var geo = new THREE.WireframeGeometry( geometry );
-            var wireframe = new THREE.LineSegments( geo, this.mat );
-            return wireframe;
+            var geo = new THREE.WireframeGeometry(geometry);
+            return new THREE.LineSegments(geo, this.mat);
         }
+    };
+
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
+
+    window.addEventListener( 'mousemove', function ( event ) {
+
+        // calculate mouse position in normalized device coordinates
+        // (-1 to +1) for both components
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+    }, false );
+
+    window.addEventListener('resize', function () {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+
+    function render() {
+
+        window.requestAnimationFrame(render);
+
+        // update orbit controls
+        if(controls) {
+            controls.update();
+        }
+
+        // Raycaster
+        // update the picking ray with the camera and mouse position
+        raycaster.setFromCamera( mouse, camera );
+
+        // calculate objects intersecting the picking ray
+        var intersects = raycaster.intersectObjects( groupStates.groupSelectables , false);
+
+        for (var i = 0; i < groupStates.groupSelectables.length; i++) {
+            groupStates.actionSetDeActive(groupStates.groupSelectables[i]);
+        }
+        if (intersects.length > 0) {
+            // only cast on the first hit
+            groupStates.actionSetActive(intersects[0].object);
+        }
+
+        renderer.render( scene, camera );
     }
+
+    render();
 
 
 
