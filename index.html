@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 
     <style>
         * { margin: 0; padding: 0;}
@@ -35,7 +36,26 @@
         .fa-anchor,.fa-coffee {font-size:200px}
 
         #three-view {
-            background-color: #607d8b1a;
+            background: rgb(96,125,139);
+            /*background: linear-gradient(180deg, rgba(96,125,139,1) 20%, rgba(255,255,255,0) 70%);*/
+            background: linear-gradient(-90deg, rgba(96,125,139,1) 10%, rgba(255,255,255,0) 100%);
+        }
+
+        #circuit-scheme-bg {
+            background-image: url('res/photos/scheme.jpg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;"
+        }
+
+        .w3-image {
+            cursor: pointer;
+            opacity: 0.85;
+            transition: opacity 0.5s;
+        }
+
+        .w3-image:hover {
+            opacity: 1;
         }
 
         /*Loading*/
@@ -68,18 +88,12 @@
     <div class="w3-bar w3-blue-grey w3-card w3-left-align w3-large">
         <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue-grey" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
         <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 1</a>
-        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 2</a>
-        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 3</a>
-        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 4</a>
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">wenop.tk</a>
     </div>
 
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Back to wenop.tk</a>
     </div>
 </div>
 
@@ -88,24 +102,31 @@
     <div id="header-content">
         <h1 class="w3-margin w3-jumbo">Keypad Watch</h1>
         <p class="w3-xlarge">Frontpage of the project Keypad Watch</p>
-        <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">GitHub</button>
+        <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">
+            <i class="fab fa-github w3-margin-right"></i> GitHub</button>
     </div>
 </header>
 
 <!-- First Grid -->
 <div class="page-section w3-row-padding w3-padding-64 w3-container">
     <div class="w3-content">
-        <div class="w3-twothird">
-            <h1>Custom Design</h1>
-            <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+        <h1>Custom Designed & Built</h1>
+        <div class="w3-row w3-padding-64">
+            <div class="w3-col l8 w3-container w3-cell">
+                <h5>
+                    <strong>Keypad Watch</strong> is a hobby project that I started and finished during my last gap year (Apr. 2018).
+                    It's a little wearable device I planned, designed and built from scratch.
+                    Intentionally, this is a wrist watch but has no screen. Numerical information can be displayed by on-and-off of the LEDs on each key.
+                </h5>
 
-            <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
+                <p class="w3-text-grey">
+                    Aside from displaying time, the watch itself is a metronome. Adjustable settings includes tempo (in BPM), time signature and note values (e.g. quarter notes, eighth notes and etc.)
+                </p>
+            </div>
 
-        <div class="w3-third w3-center">
-            <i class="fa fa-anchor w3-padding-64 w3-text-red"></i>
+            <div class="w3-col l4 w3-center w3-container w3-cell">
+                <img src="res/photos/wear-watch.jpg" alt="kpdwatch" class="w3-image">
+            </div>
         </div>
     </div>
 </div>
@@ -113,23 +134,159 @@
 <!-- Second Grid -->
 <div class="page-section w3-row-padding w3-light-grey w3-padding-64 w3-container">
     <div class="w3-content">
-        <div class="w3-third w3-center">
-            <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
-        </div>
 
-        <div class="w3-twothird">
-            <h1>Lorem Ipsum</h1>
-            <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+        <h1>Crafting</h1>
+        <div class="w3-row w3-padding-32">
 
-            <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div class="w3-col l4 w3-center w3-container w3-cell">
+                <img src="res/photos/assembly.jpg" data-hoverimg="res/photos/assembly-mov.gif" alt="" class="w3-image">
+            </div>
+
+            <div class="w3-col l8 w3-container w3-cell">
+                <h5>
+                    The whole project is completed in 3 months, starting from
+                    designing the circuit board, making the PCB, programing the chip, and finally designing and 3D-printing this geeky-looking closure.
+                </h5>
+
+                <h3>Built with: </h3>
+                <ul class="w3-ul w3-hoverable w3-margin-top">
+                    <li>Autodesk Fusion 360
+                        <span class="w3-right"><img style="height: 1.5em;" src="res/photos/logos/fusion.png"></span></li>
+                    <li>Autodesk AutoCAD
+                        <span class="w3-right"><img style="height: 1.5em;" src="res/photos/logos/autocad.png"></span></li>
+                    <li>Altium Designer 19
+                        <span class="w3-right"><img style="height: 1.5em;" src="res/photos/logos/ad.png"></span></li>
+                    <li>...</li>
+                </ul>
+
+                <p class="w3-text-grey"></p>
+            </div>
+
         </div>
     </div>
 </div>
 
+<!-- Grid -->
+<div class="page-section w3-row-padding w3-padding-64 w3-container" id="circuit-scheme-bg">
+    <div class="w3-content">
+        <h1>The heart of the KP Watch</h1>
+        <div class="w3-row w3-padding-32">
+            <div class="w3-col l6 w3-container w3-cell">
+                <h5>
+                    A custom built PCB along with a WEMOS D1 Mini provides the electronic backend for the KP Watch.
+                    The functionality provided by the custom built PCB includes:
+                </h5>
+
+                <ul class="w3-ul w3-hoverable w3-margin-top">
+                    <li>Low power clock</li>
+                    <li>Vibrator driver</li>
+                    <li>Power management (Li-ion Battery)</li>
+                    <li>IO extension for the keypads and their LEDs</li>
+                </ul>
+
+                <p class="w3-text-grey w3-margin-top">The WEMOS D1 Mini is an Arduino compatible ESP8266 board which provides the WiFi stack.</p>
+
+
+                <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">
+                    <i class="fas fa-file-pdf w3-margin-right"></i> Scheme PDF
+                </button>
+            </div>
+
+            <div class="w3-col l6 w3-center w3-container w3-cell w3-margin-top">
+                <img src="res/photos/pcb.JPG" data-hoverimg="res/photos/pcb-mov.gif" alt="" class="w3-border w3-image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Grid -->
+<div class="page-section w3-row-padding w3-padding-64 w3-light-grey w3-container">
+    <div class="w3-content">
+        <h1>Closure & 3D Printing</h1>
+        <div class="w3-row">
+            <div class="w3-col l8 w3-container w3-cell">
+                <h5 class="w3-padding-32">
+                    Click the image to see a timelapse video for the 3D modeling. See more image in the <strong>Gallery</strong> below.
+                </h5>
+                <img src="res/photos/timelapse-fusion-thumbnail.gif" alt="" class="w3-image video-thumbnail w3-border"
+                     onclick="document.querySelector('#model-display-fusion-timelapse').style.display='block'">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="page-section w3-container w3-black w3-center w3-opacity w3-padding-64">
     <h1 class="w3-margin w3-xlarge">Quote of the day: live life</h1>
+</div>
+
+<!-- Grid -->
+<div class="page-section w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+        <h1>Gallery</h1>
+
+        <div class="w3-row-padding w3-margin-top">
+
+            <div class="w3-third">
+                <div class="w3-card">
+                    <img src="res/photos/wear-watch.jpg" style="width:100%">
+                    <div class="w3-container">
+                        <h4>KP Watch Hands-on</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-third">
+                <div class="w3-card">
+                    <img src="res/photos/pcb-cad-mov.gif" style="width:100%">
+                    <div class="w3-container">
+                        <h4>PCB CAM</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-third">
+                <div class="w3-card">
+                    <img src="res/photos/rendered-case.png" style="width:100%">
+                    <div class="w3-container">
+                        <h4>Rendered image</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="w3-row-padding w3-margin-top">
+
+            <div class="w3-third">
+                <div class="w3-card">
+                    <img src="res/photos/led-debug.gif" style="width:100%">
+                    <div class="w3-container">
+                        <h4>LED array debugging</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w3-third">
+                <div class="w3-card">
+                    <img src="res/photos/wrist-band.png" style="width:100%">
+                    <div class="w3-container">
+                        <h4>Wrist Band (G-Shock Compatible)</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="w3-third">-->
+                <!--<div class="w3-card">-->
+                    <!--<img src="res/photos/wear-watch.jpg" style="width:100%">-->
+                    <!--<div class="w3-container">-->
+                        <!--<h4>Vernazza</h4>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        </div>
+
+    </div>
 </div>
 
 <!-- Footer -->
@@ -157,6 +314,18 @@
     }
 </script>
 
+<div id="modal-display-image" class="w3-modal" onclick="this.style.display='none'">
+    <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+    <div class="w3-modal-content w3-animate-zoom">
+        <img id="model-img" style="width:100%">
+    </div>
+</div>
+
+<div id="model-display-fusion-timelapse" class="w3-modal" onclick="this.style.display='none'">
+    <div class="w3-modal-content w3-animate-zoom" style="width: 560px; height: 315px">
+        <iframe style="width: 560px; height: 315px" src="https://www.youtube.com/embed/MeCR3cv6pdk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
 
 <div id="three-view" style="position: fixed; width: 50vh; height: 100vh; right: 0; top: 0">
     <div id="loading" class="loader"></div>
@@ -252,7 +421,7 @@
 
     // Load STL models
     var loader = new THREE.STLLoader();
-    loader.load('models/case-upper.stl', function (geometry) {
+    loader.load('res/3dmodels/case-upper.stl', function (geometry) {
 
         model_case_upper = new THREE.Group();
 
@@ -273,7 +442,7 @@
 
         doAfterModelLoaded();
     });
-    loader.load('models/case-lower.stl', function (geometry) {
+    loader.load('res/3dmodels/case-lower.stl', function (geometry) {
 
         model_case_lower = new THREE.Group();
 
@@ -293,7 +462,7 @@
         group_closure.add( model_case_lower );
     });
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'hash'].forEach((kn) => {
-        loader.load(`models/key-${kn}.stl`, function (geometry) {
+        loader.load(`res/3dmodels/key-${kn}.stl`, function (geometry) {
 
             var _group = new THREE.Group();
 
@@ -321,7 +490,7 @@
     ].forEach((e) => {
         var model_fn = e[0];
         var explode_y = e[1];
-        loader.load('models/'+model_fn, function (geometry) {
+        loader.load('res/3dmodels/'+model_fn, function (geometry) {
             var _group = new THREE.Group();
 
             // add the mesh
@@ -354,8 +523,8 @@
         }, 1000);
 
         setTimeout(function () {
-            playAssemblyAnimation(3000);
-        }, 9000);
+            playAssemblyAnimation(2000);
+        }, 5000);
 
         anime.timeline()
             // rotation
@@ -396,7 +565,6 @@
         explodeProgress: 0,
         cam_y: 5
     };
-
 
     function playRotateAnimation(duration, after) {
 
@@ -521,12 +689,47 @@
 
     render();
 
-    window.addEventListener('scroll', function () {
-        console.log(document.body.scrollTop);
-        console.log(document.body.scrollHeight);
+    function updateScrollEffect() {
+        var scrollPercentage = window.pageYOffset / (document.body.scrollHeight - window.innerHeight);
+        // console.log(scrollPercentage);
+
+        var reservedTop = 0.2;
+        if (scrollPercentage > reservedTop) {
+            scrollPercentage = (scrollPercentage - reservedTop) / (1 - reservedTop);
+            for (var i = 0; i < explodeYValues.models.length; i++) {
+                explodeYValues.models[i].position.y = explodeYValues.yValues[i] * scrollPercentage;
+            }
+        } else {
+            // Reset the position (to assembly view)
+            for (var i = 0; i < explodeYValues.models.length; i++) {
+                explodeYValues.models[i].position.y = 0;
+            }
+        }
+    }
+
+    window.addEventListener('scroll', updateScrollEffect);
+
+
+</script>
+<script>
+    document.querySelectorAll('img.w3-image').forEach((el)=>{
+        if (el.classList.contains('video-thumbnail')) return;
+        el.addEventListener('click', function (evt) {
+            document.querySelector('img#model-img').src = evt.target.src;
+            document.querySelector('#modal-display-image').style.display = 'block';
+        });
+        el.addEventListener('mouseenter', function (evt) {
+            if (evt.target.dataset.hoverimg) {
+                evt.target.dataset.oriimg = evt.target.src;
+                evt.target.src = evt.target.dataset.hoverimg;
+            }
+        });
+        el.addEventListener('mouseleave', function (evt) {
+            if (evt.target.dataset.hoverimg) {
+                evt.target.src = evt.target.dataset.oriimg;
+            }
+        });
     })
-
-
 </script>
 </body>
 </html>
